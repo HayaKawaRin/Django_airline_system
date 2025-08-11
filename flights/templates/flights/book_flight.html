@@ -1,0 +1,26 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+<div style="justify-content: center;align-items: center;justify-items: center;margin-top: 20px;" >
+    <form method="post">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            <p style="margin-bottom: 2px;font-size: 25px;">Username:</p>
+            <input type="text" name="name" placeholder="{{ user.username }}" style="width: 200px; font-size: 18px;">
+            <div style="margin: 10px 0 10px 0;"></div>
+            <p style="margin: 2px;font-size: 25px;">Email:</p>
+            <input type="email" name="email" placeholder="{{ user.email }}" style="width: 200px; font-size: 18px;">
+        {% else %}
+            <label for="name">Your Name</label>
+            <input type="text" name="name" required>
+            <label for="email">Your Email</label>
+            <input type="email" name="email" required>
+        {% endif %}
+        <div style="margin-top: 10px;"><button type="submit">Confirm Booking</button></div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+    
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'flights/base.html' %}
+
+
+{% block content %}
+<h1 class="flight-info">Flight Information</h1>
+
+
+<div class="flight-list">
+    <h2>{{ flight }}</h2>
+<p>Duration: {{ flight.duration }} min</p>
+<p>Capacity: {{ flight.capacity }}</p>
+<p>Available seats: {{ flight.available_seats }}</p>
+<a href="{% url 'book_flight' flight.id %}">Book this flight</a>
+</div>
+
+
+<p class="back-to-menu">
+    <a href="{% url 'index' %}">Back to Main page</a>
+</p>
+
+
+<footer style="text-align: right;">
+    <h2 style="font-family: 'Courier New', Courier, monospace;font-size: 20px;color: gray;">Gaziz Yermekuly</h2>
+</footer>
+
+
+<!-- Styling -->
+<style>
+    .flight-list{
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        border: 1px solid black;
+        margin: 20px 30% 20px 30%;
+        border-radius: 20px;
+        box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.3), 5px 5px 15px rgba(0, 0, 0, 0.2);
+        padding: 0 0 10px 0;
+    }
+    .flight-list a{
+        text-decoration: none;
+        border: 1px solid black;
+        margin: auto;
+        padding: 1px 3px 1px 3px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+    }
+    .flight-list a:hover{
+        box-shadow: inset 1px 1px 10px white, 1px 1px 10px black;
+        transition: all .3s ease;
+    }
+    .back-to-menu,.flight-info{
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        text-align: center;
+    }
+</style>
+<!-- Styling -->
+
+{% endblock %}
+
+{% block extra_css %}
+    
+{% endblock %}

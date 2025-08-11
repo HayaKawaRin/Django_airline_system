@@ -1,0 +1,32 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+<div class="book-conf">
+    <h2>Booking Confirmed!</h2>
+    <p>Your booking code: {{ booking.booking_code }}</p>
+    <p class="back-to-menu">
+        <a href="{% url 'index' %}">Back to Main page</a>
+    </p>
+</div>
+
+
+<footer style="text-align: right;">
+    <h2 style="font-family: 'Courier New', Courier, monospace;font-size: 20px;color: gray;">Gaziz Yermekuly</h2>
+</footer>
+
+
+<!-- Styling -->
+<style>
+    .book-conf{
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        margin-top: 10%;
+    }
+</style>
+<!-- Styling -->
+{% endblock %}
+
+{% block extra_css %}
+    
+{% endblock %}

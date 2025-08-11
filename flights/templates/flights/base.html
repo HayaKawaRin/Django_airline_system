@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My site{% endblock %}</title>
+</head>
+<body>
+    {% if request.session.promo_code and not request.session.promo_code_seen %}
+        <div id="promo-banner" style="background-color: #ffcc00; padding: 10px; text-align: center; font-size: 18px;">
+            <p>Hello! Use promo: <strong>{{ request.session.promo_code }}</strong> for discount.</p>
+            <button onclick="hidePromoCode()">Close</button>
+        </div>
+
+        <script>
+            function hidePromoCode() {
+                document.getElementById("promo-banner").style.display = "none";
+                fetch('{% url "promo_seen" %}', { method: "POST" });
+            }
+        </script>
+
+{% endif %}
+    <header>
+        <nav>
+            <ul class="nav-menu">
+                {% if user.is_authenticated %}
+                    <li style="font-size: 35px;">Welcome, <span style="font-weight: 700;">{{ user.username }} ({{ user.email }})</span></li>
+                    <li><a href="{% url 'logout' %}" style="border: 1px solid black;border-radius: 5px;background-color: greenyellow;padding: 5px;font-size: 25px;color: black;">Log out</a></li>
+                {% else %}
+                    <li><a href="{% url 'home' %}" style="border: 2px solid black;border-radius: 5px; padding: 3px;">Home</a></li>
+                    <li><a href="{% url 'login' %}"style="border: 2px solid black;border-radius: 5px; padding: 3px;">Log in</a></li>
+                    <li><a href="{% url 'register' %}"style="border: 2px solid black;border-radius: 5px; padding: 3px;">Sign up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Gaziz Yermekuly</p>
+    </footer>
+    <style>
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            gap: 75px;
+            align-items: center;
+        }
+    
+        .nav-menu li {
+            display: inline;
+        }
+    
+        .nav-menu a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    
+        .nav-menu a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</body>
+</html>

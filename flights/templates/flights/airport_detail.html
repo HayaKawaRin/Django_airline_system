@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ airport.city }} ({{ airport.code }})</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .flights-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .flight-list {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 45%;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            margin: 5px 0;
+            background: #e9ecef;
+            border-radius: 5px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ airport.city }} ({{ airport.code }})</h1>
+
+    <div class="flights-container">
+        <div class="flight-list">
+            <h2>Departures</h2>
+            {% if airport.departures.all %}
+                <ul>
+                    {% for flight in airport.departures.all %}
+                        <li>
+                            <a href="{% url 'flight_detail' flight.id %}">{{ flight.destination.city }} ({{ flight.destination.code }})</a> 
+                            - {{ flight.duration }} min
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No departures from this airport.</p>
+            {% endif %}
+        </div>
+
+        <div class="flight-list">
+            <h2>Arrivals</h2>
+            {% if airport.arrivals.all %}
+                <ul>
+                    {% for flight in airport.arrivals.all %}
+                        <li>
+                            <a href="{% url 'flight_detail' flight.id %}">{{ flight.origin.city }} ({{ flight.origin.code }})</a> 
+                            - {{ flight.duration }} min
+                        </li>
+                    {% endfor %}
+                </ul>

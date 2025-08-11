@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Airline Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    {% if messages %}
+    <ul style="color: red;">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <a href="{% url 'login' %}" class="button">Log in</a>
+    <a href="{% url 'register' %}" class="button">Sign up</a>
+    <a href="{% url 'guest_flights' %}" class="button">Guest</a>
+</body>
+</html>

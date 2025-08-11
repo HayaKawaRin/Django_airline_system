@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <div style="justify-items: center;">
+        <h1>Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Log in</button>
+        </form>
+        
+        {% if form.errors %}
+            <p style="color:red;">Login error. Check your login and password.</p>
+        {% endif %}
+
+    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</body>
+</html>

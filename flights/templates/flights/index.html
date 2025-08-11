@@ -1,0 +1,159 @@
+{% extends 'flights/base.html' %}
+
+{% block title %}Flights{% endblock %}
+
+{% block content %}
+    <h1 class="header-text">Flights</h1>
+
+    <div class="code">
+    {% for flight in flights %}
+        <p class="code-flights">
+            <a href="{% url 'flight_detail' flight.id %}">{{ flight.origin }} → {{ flight.destination }} ({{ flight.duration }} min)</a>
+            <button class="show-info-button" onclick="openModal('{{ flight.id }}')">Show Info</button>
+        </p>
+
+        <div id="modal-{{ flight.id }}" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('{{ flight.id }}')">&times;</span>
+                <h2>Flight Details</h2>
+                <p><strong>Flight ID:</strong> {{ flight.id }}</p>
+                <p><strong>Origin:</strong> {{ flight.origin.name }} ({{ flight.origin.code }})</p>
+                <p><strong>Destination:</strong> {{ flight.destination.name }} ({{ flight.destination.code }})</p>
+                <p><strong>Duration:</strong> {{ flight.duration }} minutes</p>
+                <p><strong>Capacity:</strong> {{ flight.capacity }} passengers</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+    <div class="check-booking">
+        <form action="{% url 'manage_booking' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="booking_code" placeholder="Enter Booking Code">
+            <button type="submit">Check Booking</button>
+        </form>
+    </div>
+
+    <div class="check-booking">
+        <h2>Find Your Booking Codes</h2>
+        <form method="post" action="{% url 'find_bookings' %}">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <script>
+        function openModal(flightId) {
+            document.getElementById('modal-' + flightId).style.display = 'block';
+        }
+
+        function closeModal(flightId) {
+            document.getElementById('modal-' + flightId).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+
+    <style>
+        .code{
+            justify-content: center;
+            align-items: center;
+            justify-items: center;
+            border: 1px solid black;
+            margin: 20px 30% 20px 30%;
+            border-radius: 20px;
+            box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.3), 5px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            padding-top: 100px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 70%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .show-info-button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            margin-left: 10px;
+        }
+
+        .show-info-button:hover {
+            background-color: #27ae60;
+        }
+        .check-booking{
+            justify-content: center;
+            align-items: center;
+            justify-items: center;
+        }
+        .code-flights a{
+            text-decoration: none;
+            text-transform: none;
+        }
+        .code-flights a:hover{
+            color: white;
+            transition: all .5s ease;
+        }
+        .code-flights:hover{
+            border: 1px solid skyblue;
+            border-radius: 10px;
+            background-color: skyblue;
+            color: white;
+            transition: unset .5s ease;
+            padding: 0 10px 0 10px;
+        }
+        .header-text{
+            justify-content: center;
+            align-items: center;
+            justify-items: center;
+            text-align: center;
+            font-size: 50px;font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+{% endblock %}
+
+{% block extra_css %}
+    
+{% endblock %}

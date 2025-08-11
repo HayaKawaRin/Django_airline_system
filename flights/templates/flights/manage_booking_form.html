@@ -1,0 +1,16 @@
+<h2>Check Booking</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="booking_code" placeholder="Enter Booking Code">
+    <button type="submit">Check</button>
+</form>
+
+
+<p class="back-to-menu">
+    <a href="{% url 'index' %}">Back to Main page</a>
+</p>
+
+
+<footer style="text-align: right;">
+    <h2 style="font-family: 'Courier New', Courier, monospace;font-size: 20px;color: gray;">Gaziz Yermekuly</h2>
+</footer>

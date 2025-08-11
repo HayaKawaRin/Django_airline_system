@@ -1,0 +1,61 @@
+{% extends 'flights/base.html' %}
+
+{% block title %}Flights{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Flights (Guest)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .flight-box {
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            margin-top: 30px;
+        }
+
+        .flight-box a {
+            display: block;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #3333cc;
+        }
+
+        .flight-box a:hover {
+            text-decoration: underline;
+        }
+
+        .note {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of flights</h1>
+
+    <div class="flight-box">
+        {% for flight in flights %}
+            <a href="#">{{ flight.origin }} → {{ flight.destination }} ({{ flight.duration }} мин)</a>
+        {% empty %}
+            <p>Flights not found.</p>
+        {% endfor %}
+    </div>
+
+    <p class="note">You are logged in as a guest - booking is not available.</p>
+    <a href="{% url 'home' %}">Back to home</a>
+</body>
+</html>
+{% endblock %}

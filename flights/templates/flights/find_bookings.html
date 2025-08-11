@@ -1,0 +1,78 @@
+<div class="book-code">
+    {% if bookings %}
+    <h3>Your Bookings:</h3>
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                Booking Code: 
+                <span class="booking-code" onmouseover="copyToClipboard(this)">
+                    {{ booking.booking_code }}
+                </span>
+                <span class="tooltip">Copied!</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No bookings found for this email.</p>
+{% endif %}
+
+<a href="{% url 'index' %}">Back to Home</a>
+</div>
+
+
+
+<style>
+    .book-code{
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        margin-top: 10%;
+    }
+
+    .booking-code {
+        cursor: pointer;
+        font-weight: bold;
+        color: blue;
+        text-decoration: underline;
+        position: relative;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+    }
+
+    .booking-code:hover + .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
+
+<script>
+    function copyToClipboard(element) {
+        const text = element.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const tooltip = element.nextElementSibling;
+            tooltip.style.visibility = "visible";
+            tooltip.style.opacity = "1";
+
+            setTimeout(() => {
+                tooltip.style.visibility = "hidden";
+                tooltip.style.opacity = "0";
+            }, 1000);
+        });
+        alert("Скопировано: " + text);
+    }
+</script>

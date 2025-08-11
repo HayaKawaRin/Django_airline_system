@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration</title>
+</head>
+<body>
+    <div style="justify-items: center;border-radius: 50px 0 50px 0;border: 5px solid black;margin: 50px 15% 0 15%;">
+        <h1>Registration</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    {% if form.errors %}
+        <p style="color:red;">Registration error. Check the entered data.</p>
+    {% endif %}
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</body>
+</html>

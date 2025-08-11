@@ -1,0 +1,43 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+
+<h2>Booking Details</h2>
+<div class="book-details">
+    <p><strong>Name:</strong> {{ booking.passenger.name }}</p>
+    <p><strong>Email:</strong> {{ booking.passenger.email }}</p>
+    <p><strong>Flight:</strong> {{ booking.flight.origin }} → {{ booking.flight.destination }}</p>
+    <p><strong>Duration:</strong> {{ booking.flight.duration }} min</p>
+    <p><strong>Booking Code:</strong> {{ booking.booking_code }}</p>
+    <a href="{% url 'index' %}">Back to Home</a>
+</div>
+
+
+<footer style="text-align: right;">
+    <h3 style="font-family: 'Courier New', Courier, monospace;font-size: 20px;color: gray;">Gaziz Yermekuly</h3>
+</footer>
+
+
+<style>
+    h2{
+        justify-content: center;
+        align-items:flex-start;
+        justify-items: center;
+        text-align: center;
+    }
+    .book-details{
+        justify-content: center;
+        align-items:flex-start;
+        justify-items: center;
+        border: 1px solid black;
+        margin: 20px 30% 20px 30%;
+        border-radius: 20px;
+        box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.3), 5px 5px 15px rgba(0, 0, 0, 0.2);
+        padding: 0 0 10px 0;
+    }
+</style>
+{% endblock %}
+
+{% block extra_css %}
+    
+{% endblock %}
